@@ -29,6 +29,10 @@
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
     <EmbeddedResource Include="FaceDetectionPage.xaml" />
+    <EmbeddedResource Include="AppRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -39,6 +43,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FaceEmotionDetection.cs" />
+    <Compile Include="AppRes.Designer.cs">
+      <DependentUpon>AppRes.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Media.Abstractions">

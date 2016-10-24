@@ -20,9 +20,9 @@ namespace FaceDetection
 		{
 			InitializeComponent();
 			// Provides access to the Face APIs
-			this.faceServiceClient = new FaceServiceClient("a907946d4f504b47ba179a242728f9dd");
+			this.faceServiceClient = new FaceServiceClient(AppRes.KeyFaceAPI); 
 			// Provides access to the Emotion APIs
-			this.emotionServiceClient = new EmotionServiceClient("0e05246b427543d791a963d92e8ba3c0");
+			this.emotionServiceClient = new EmotionServiceClient(AppRes.KeyEmotionAPI);
 		}
 
 		private async void UploadPictureButton_Clicked(object sender, EventArgs e)
