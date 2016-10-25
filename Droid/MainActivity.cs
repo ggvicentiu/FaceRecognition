@@ -11,7 +11,7 @@ using Plugin.Permissions;
 
 namespace FaceDetection.Droid
 {
-	[Activity(Label = "Face Detection", Icon = "@drawable/icon", 
+	[Activity(Label = "Face Detection", Icon = "@drawable/ic_launcher", 
 	          Theme = "@style/MyTheme", MainLauncher = true, 
 	          ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

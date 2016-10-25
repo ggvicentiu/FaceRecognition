@@ -7,7 +7,8 @@
 	<Grid Padding="5" HorizontalOptions="CenterAndExpand" 
 				VerticalOptions="StartAndExpand">
 			<Grid.RowDefinitions>
-			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="Auto">
+			</RowDefinition>
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"></ColumnDefinition>
@@ -22,7 +23,10 @@
 	</Grid>		
     
     <ActivityIndicator x:Name="Indicator1" IsVisible="False" IsRunning="False" />
-    <Image x:Name="Image1" HeightRequest="330" />
+		
+    <Image x:Name="Image1"><Image.HeightRequest>
+		<OnPlatform x:TypeArguments = "x:Double" iOS="240" Android="330"></OnPlatform>
+		</Image.HeightRequest></Image>
     <StackLayout Orientation="Horizontal" Padding="3">
       <Label Text="Gender: "/>
       <Label x:Name="GenderLabel" Text="{Binding Path=Gender}" />
