@@ -25,7 +25,7 @@
     <ActivityIndicator x:Name="Indicator1" IsVisible="False" IsRunning="False" />
 		
     <Image x:Name="Image1"><Image.HeightRequest>
-		<OnPlatform x:TypeArguments = "x:Double" iOS="240" Android="330"></OnPlatform>
+		<OnPlatform x:TypeArguments = "x:Double" iOS="240" Android="330" WinPhone="300"></OnPlatform>
 		</Image.HeightRequest></Image>
     <StackLayout Orientation="Horizontal" Padding="3">
       <Label Text="Gender: "/>

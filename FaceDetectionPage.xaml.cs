@@ -14,15 +14,15 @@ namespace FaceDetection
 {
 	public partial class FaceDetectionPage : ContentPage
 	{
-		private readonly IFaceServiceClient faceServiceClient;
-		private readonly EmotionServiceClient emotionServiceClient;
+		private readonly IFaceServiceClient _faceServiceClient;
+		private readonly EmotionServiceClient _emotionServiceClient;
 		public FaceDetectionPage()
 		{
 			InitializeComponent();
 			// Provides access to the Face APIs
-			this.faceServiceClient = new FaceServiceClient(AppRes.KeyFaceAPI); 
+			this._faceServiceClient = new FaceServiceClient(AppRes.KeyFaceAPI); 
 			// Provides access to the Emotion APIs
-			this.emotionServiceClient = new EmotionServiceClient(AppRes.KeyEmotionAPI);
+			this._emotionServiceClient = new EmotionServiceClient(AppRes.KeyEmotionAPI);
 		}
 
 		private async void UploadPictureButton_Clicked(object sender, EventArgs e)
@@ -113,33 +113,39 @@ namespace FaceDetection
 			{
 				// Get emotions from the specified stream
 				Emotion[] emotionResult = await
-				  emotionServiceClient.RecognizeAsync(inputFile.GetStream());
+				  _emotionServiceClient.RecognizeAsync(inputFile.GetStream());
 				// Assuming the picture has one face, retrieve emotions for the
 				// first item in the returned array
 				var faceEmotion = emotionResult[0]?.Scores.ToRankedList();
 
 				// Get a list of faces in a picture
-				var faces = await faceServiceClient.DetectAsync(inputFile.GetStream(),
+				var faces = await _faceServiceClient.DetectAsync(inputFile.GetStream(),
 				  false, false, requiredFaceAttributes);
 				// Assuming there is only one face, store its attributes
 				var faceAttributes = faces[0]?.FaceAttributes;
 
-				FaceEmotionDetection faceEmotionDetection = new FaceEmotionDetection();
-				faceEmotionDetection.Age = faceAttributes.Age;
-				faceEmotionDetection.Emotion = faceEmotion.FirstOrDefault().Key;
-				faceEmotionDetection.Glasses = faceAttributes.Glasses.ToString();
-				faceEmotionDetection.Smile = faceAttributes.Smile;
-				faceEmotionDetection.Gender = faceAttributes.Gender;
-				faceEmotionDetection.Moustache = faceAttributes.FacialHair.Moustache;
-				faceEmotionDetection.Beard = faceAttributes.FacialHair.Beard;
+			    if (faceAttributes != null)
+			    {
+			        FaceEmotionDetection faceEmotionDetection = new FaceEmotionDetection
+			        {
+			            Age = faceAttributes.Age,
+			            Emotion = faceEmotion.FirstOrDefault().Key,
+			            Glasses = faceAttributes.Glasses.ToString(),
+			            Smile = faceAttributes.Smile,
+			            Gender = faceAttributes.Gender,
+			            Moustache = faceAttributes.FacialHair.Moustache,
+			            Beard = faceAttributes.FacialHair.Beard
+			        };
 
-				return faceEmotionDetection;
+			        return faceEmotionDetection;
+			    }
 			}
 			catch (Exception ex)
 			{
 				await DisplayAlert("Error", ex.Message, "OK");
 				return null;
 			}
+		    return null;
 		}
 	}
 }
