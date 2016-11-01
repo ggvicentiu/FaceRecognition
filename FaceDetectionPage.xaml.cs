@@ -20,9 +20,9 @@ namespace FaceDetection
 		{
 			InitializeComponent();
 			// Provides access to the Face APIs
-			this._faceServiceClient = new FaceServiceClient(AppRes.KeyFaceAPI); 
+			this._faceServiceClient = new FaceServiceClient(Constants.KeyFaceAPI); 
 			// Provides access to the Emotion APIs
-			this._emotionServiceClient = new EmotionServiceClient(AppRes.KeyEmotionAPI);
+			this._emotionServiceClient = new EmotionServiceClient(Constants.KeyEmotionAPI);
 		}
 
 		private async void UploadPictureButton_Clicked(object sender, EventArgs e)
@@ -60,9 +60,10 @@ namespace FaceDetection
 
 		private async void TakePictureButton_Clicked(object sender, EventArgs e)
 		{
-			
+            //in order for camera not to hang in UWP, this should be the first line of code to run, other wise camera will just take forever to initialize
+            await CrossMedia.Current.Initialize();
 
-			if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
 			{
 				await DisplayAlert("No Camera", "No camera available.", "OK");
 				return;
@@ -70,8 +71,7 @@ namespace FaceDetection
 
 			MediaFile file = null;
 			System.IO.Stream stream = null;
-
-			await CrossMedia.Current.Initialize();
+            			
 			await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
 			{
 				SaveToAlbum = true,
