@@ -39,4 +39,4 @@ Thumbs.db
 # dotCover
 *.dotCover
 
-AppRes.*
+Constants.cs
